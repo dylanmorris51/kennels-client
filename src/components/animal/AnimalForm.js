@@ -51,6 +51,22 @@ export const AnimalForm = (props) => {
     }, [animals])
 
 
+    // Treatment options for dropdown
+    const animalStatus = [
+        {
+            id: 1,
+            name: "Recreation"
+        },
+        {
+            id: 2,
+            name: "Kennel" 
+        },
+        {
+            id: 3,
+            name: "Treatment"
+        }
+    ]
+
     const constructNewAnimal = () => {
         const locationId = parseInt(animal.locationId)
 
@@ -63,6 +79,7 @@ export const AnimalForm = (props) => {
                     id: animal.id,
                     name: animal.name,
                     breed: animal.breed,
+                    status: animalStatus.find(a => a.id == parseInt(animal.animalStatus)).name,
                     locationId: locationId,
                     treatment: animal.treatment,
                     customerId: parseInt(localStorage.getItem("kennel_customer"))
@@ -73,6 +90,7 @@ export const AnimalForm = (props) => {
                 addAnimal({
                     name: animal.name,
                     breed: animal.breed,
+                    status: animalStatus.find(a => a.id == parseInt(animal.animalStatus)).name,
                     locationId: locationId,
                     treatment: animal.treatment,
                     customerId: parseInt(localStorage.getItem("kennel_customer"))
@@ -121,6 +139,22 @@ export const AnimalForm = (props) => {
                     </select>
                 </div>
             </fieldset>
+            <fieldset>
+                <div className="form-group">
+                    <label htmlFor="animalStatus">Status: </label>
+                    <select name="animalStatus" className="form-control"
+                        value={animalStatus.id}
+                        onChange={handleControlledInputChange}>
+
+                        <option value="0">Select a status</option>
+                        {animalStatus.map(e => (
+                            <option key={e.id} value={e.id}>
+                                {e.name}
+                            </option>
+                        ))}
+                    </select>
+                </div>
+            </fieldset>            
             <fieldset>
                 <div className="form-group">
                     <label htmlFor="treatment">Treatments: </label>
